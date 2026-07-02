@@ -45,6 +45,24 @@
       pageTitle.textContent = titleInput.value || '[Страница]';
     });
 
+    /* ---- 3b. Кнопки острова: тексты и сторона вторичной ---- */
+    var btnPrimary = document.getElementById('btnPrimary');
+    var btnSecondary = document.getElementById('btnSecondary');
+    var btnPrimaryInput = document.getElementById('btnPrimaryInput');
+    var btnSecondaryInput = document.getElementById('btnSecondaryInput');
+    var secondarySideSelect = document.getElementById('secondarySideSelect');
+    var islandButtons = document.getElementById('islandButtons');
+
+    btnPrimaryInput.addEventListener('input', function () {
+      btnPrimary.textContent = btnPrimaryInput.value;
+    });
+    btnSecondaryInput.addEventListener('input', function () {
+      btnSecondary.textContent = btnSecondaryInput.value;
+    });
+    secondarySideSelect.addEventListener('change', function () {
+      islandButtons.dataset.secondarySide = secondarySideSelect.value;
+    });
+
     /* ---- 4. Ширина страницы ---- */
     var widthSelect = document.getElementById('widthSelect');
     var app = document.getElementById('app');

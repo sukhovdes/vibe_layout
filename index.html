@@ -93,21 +93,30 @@
 
             <!-- Состояние: Заполнено (по макету) -->
             <div class="state is-active" data-state="filled">
-              <div style="display:flex; flex-direction:column; gap:16px;">
-                <h2 class="state__title">Заявка на открытие счёта принята</h2>
-                <p class="state__text">
-                  Подготовили список документов для вашей организации.<br />
-                  Загрузите документы — рассмотрим их за 1 день
-                </p>
+              <!-- Картинка-хедер острова: градиент + 3D-иллюстрация из Figma.
+                   Показ/скрытие — тумблером «Картинка» в настройках.
+                   Иллюстрацию менять в assets/illustrations/island.png -->
+              <div class="island-header" id="islandImage" hidden>
+                <img class="island-header__img" src="assets/illustrations/island.png" alt="" />
               </div>
-              <div class="state__buttons">
-                <button class="btn btn--l btn--secondary">Назад</button>
-                <button class="btn btn--l btn--primary">Продолжить</button>
+              <!-- Белая карточка-остров: наезжает на картинку (−24px) со скруглением сверху -->
+              <div class="island-body">
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                  <h2 class="state__title">Заявка на открытие счёта принята</h2>
+                  <p class="state__text">
+                    Подготовили список документов для вашей организации.<br />
+                    Загрузите документы — рассмотрим их за 1 день
+                  </p>
+                </div>
+                <div class="state__buttons" id="islandButtons">
+                  <button class="btn btn--l btn--secondary" id="btnSecondary">Назад</button>
+                  <button class="btn btn--l btn--primary" id="btnPrimary">Продолжить</button>
+                </div>
               </div>
             </div>
 
             <!-- Состояние: Пустое -->
-            <div class="state state--centered" data-state="empty">
+            <div class="state state--card state--centered" data-state="empty">
               <!-- Иллюстрации нет в Figma → серый круг-плейсхолдер (заменить экспортом) -->
               <div class="placeholder-circle big"></div>
               <h2 class="state__title">Здесь пока пусто</h2>
@@ -118,7 +127,7 @@
             </div>
 
             <!-- Состояние: Загрузка (скелетон) -->
-            <div class="state" data-state="loading" style="gap:24px;">
+            <div class="state state--card" data-state="loading">
               <div class="skeleton skeleton--title"></div>
               <div style="display:flex; flex-direction:column; gap:12px;">
                 <div class="skeleton skeleton--line"></div>
@@ -131,7 +140,7 @@
             </div>
 
             <!-- Состояние: Ошибка -->
-            <div class="state state--centered" data-state="error">
+            <div class="state state--card state--centered" data-state="error">
               <!-- Иллюстрации ошибки нет в Figma → серый круг-плейсхолдер -->
               <div class="placeholder-circle big"></div>
               <h2 class="state__title">Что-то пошло не так</h2>
@@ -221,6 +230,33 @@
             <option value="empty">Пустое</option>
             <option value="loading">Загрузка</option>
             <option value="error">Ошибка</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__title">Остров (контент)</div>
+        <div class="control-row">
+          <label>Картинка</label>
+          <label class="switch"><input type="checkbox" data-toggle="islandImage" /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label for="btnPrimaryInput">Текст основной кнопки</label>
+          <input type="text" id="btnPrimaryInput" value="Продолжить" />
+        </div>
+        <div class="control-row">
+          <label>Вторичная кнопка</label>
+          <label class="switch"><input type="checkbox" data-toggle="btnSecondary" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label for="btnSecondaryInput">Текст вторичной</label>
+          <input type="text" id="btnSecondaryInput" value="Назад" />
+        </div>
+        <div class="control-row">
+          <label for="secondarySideSelect">Вторичная кнопка</label>
+          <select id="secondarySideSelect">
+            <option value="left">Слева</option>
+            <option value="right">Справа</option>
           </select>
         </div>
       </div>

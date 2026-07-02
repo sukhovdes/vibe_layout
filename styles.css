@@ -262,14 +262,17 @@ img { display: block; }
   flex: 1;
 }
 
+/* Рамка острова: прозрачная, скруглённая, обрезает содержимое.
+   Белый фон живёт в карточках состояний (.state--card / .island-body),
+   чтобы картинка-хедер могла лежать сзади, а белый остров — наезжать на неё. */
 .content-container {
   flex: 1; min-width: 0;
   align-self: stretch;
   min-height: 0;
-  padding: var(--pad-32);
-  background: var(--layerFloor1);
   border-radius: var(--radius-600);
   overflow: clip;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Большие кнопки внутри контейнера (56px) */
@@ -326,12 +329,80 @@ img { display: block; }
 /* =========================================================================
    БЛОК КОНТЕНТА (переключается дропдауном «Состояние контейнера»)
    ========================================================================= */
-.state { display: none; flex-direction: column; gap: 24px; }
-.state.is-active { display: flex; }
+.state { display: none; flex: 1; min-height: 0; }
+.state.is-active { display: flex; flex-direction: column; gap: 24px; }
+
+/* Белая карточка-остров для состояний без картинки-хедера */
+.state--card {
+  background: var(--layerFloor1);
+  border-radius: var(--radius-600);
+  padding: var(--pad-32);
+}
+
+/* Заполненное состояние: картинка-хедер сзади + белая карточка поверх */
+.state[data-state="filled"].is-active { gap: 0; }
+.island-body {
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column; gap: 24px;
+  background: var(--layerFloor1);
+  border-radius: var(--radius-600);
+  padding: var(--pad-32);
+}
+/* Нахлыст: когда картинка включена — белый остров наезжает на неё на 24px,
+   верхние скругления острова остаются видны поверх градиента */
+.island-header:not([hidden]) + .island-body {
+  margin-top: -48px;
+  position: relative;
+  z-index: 1;
+}
 
 .state__title { margin: 0; font-size: 27px; line-height: 32px; font-weight: 700; }
 .state__text  { margin: 0; font-size: 16px; line-height: 24px; color: var(--textPrimary); }
 .state__buttons { display: flex; gap: 16px; align-items: center; }
+
+/* Картинка-хедер острова: во всю ширину, градиент + иллюстрация.
+   Отрицательные поля гасят padding контейнера (32px), чтобы картинка была edge-to-edge. */
+.island-header {
+  height: 232px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: var(--layerFloor1);
+}
+/* Градиент (как было) — прижат к низу, статичный по позиции.
+   Лежит на псевдоэлементе, чтобы пульсировать прозрачностью без мигания картинки. */
+.island-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 85% at 66% 92%, rgba(140, 180, 255, 0.55), rgba(140, 180, 255, 0) 70%),
+    radial-gradient(55% 85% at 28% 92%, rgba(215, 255, 175, 0.55), rgba(215, 255, 175, 0) 70%);
+  animation: island-glow 6s ease-in-out infinite alternate;
+}
+@keyframes island-glow {
+  from { opacity: 0.5; }
+  to   { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .island-header::before { animation: none; opacity: 1; }
+}
+/* Иллюстрация поверх пятен, приподнята чуть выше */
+.island-header__img {
+  position: relative;
+  z-index: 1;
+  height: 216px; width: auto;
+  object-fit: contain;
+  transform: translateY(-22px);
+}
+
+/* Порядок кнопок: вторичная слева (по умолчанию) или справа от основной */
+#btnPrimary { order: 1; }
+#btnSecondary { order: 0; }
+#islandButtons[data-secondary-side="right"] #btnSecondary { order: 2; }
 
 /* Пустое / ошибка — центрируем «серый круг» + текст */
 .state--centered {
