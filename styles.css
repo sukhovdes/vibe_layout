@@ -1,0 +1,480 @@
+/* =========================================================================
+   OZON БАНК · B2B ЛЕЯУТ ДЛЯ ДИЗАЙНЕРОВ
+   Токены и стили взяты 1:1 из Figma (файл «Прототип», node 82167-3114).
+   Все переменные ниже — это реальные Design Tokens из Figma.
+   ========================================================================= */
+
+/* ---------- Дизайн-токены (Figma Variables) ---------- */
+:root {
+  /* Фоны / поверхности */
+  --bgPrimary: #f5f7fa;
+  --bgSecondary: #0030780a;
+  --layerFloor1: #ffffff;
+
+  /* Экшн-цвета (кнопки, ссылки) */
+  --bgActionPrimary: #005bff;
+  --bgActionSecondary: #0096ff14;
+  --textAction: #005bff;
+
+  /* Текст */
+  --textPrimary: #070707;
+  --textSecondary: #001a3499;
+  --textTertiary: #001a3466;
+  --textLightKey: #ffffff;
+  --textPrimaryInverted: #f5f7fa;
+
+  /* Графика */
+  --graphicNeutral: #ccd6e499;
+  --graphicPositivePrimary: #10c44c;
+
+  /* Радиусы */
+  --radius-button: 8px;
+  --radius-500: 16px;
+  --radius-600: 24px;
+  --radius-menu: 12px;
+
+  /* Отступы */
+  --pad-300: 8px;
+  --pad-16: 16px;
+  --pad-32: 32px;
+
+  /* Типографика */
+  --font-brand: 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Размеры лейаута */
+  --header-h: 76px;
+  --leftmenu-w: 246px;
+  --stepper-w: 328px;
+  --content-side-pad: 272px;   /* поля страницы для Desktop XXL */
+}
+
+/* ---------- База ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-brand);
+  background: var(--bgPrimary);
+  color: var(--textPrimary);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; }
+
+/* Иконка: единый бокс. По правилу дизайнеров — всё в 24px фрейме. */
+.icon { width: 24px; height: 24px; flex: 0 0 auto; }
+.icon.s16 { width: 16px; height: 16px; }
+
+/* Серый круг-плейсхолдер: используется, когда иконки/иллюстрации нет в Figma.
+   Дизайнер экспортирует нужный ассет сам и заменит этот круг. */
+.placeholder-circle {
+  width: 24px; height: 24px;
+  border-radius: 999px;
+  background: var(--graphicNeutral);
+  flex: 0 0 auto;
+}
+.placeholder-circle.big { width: 96px; height: 96px; }
+
+/* =========================================================================
+   КАРКАС СТРАНИЦЫ
+   ========================================================================= */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 var(--content-side-pad) 40px;
+}
+
+/* Режим «Резиновая ширина» — поля по краям убираются */
+.app[data-page-width="fluid"] { --content-side-pad: 24px; }
+
+/* Брейкпоинт 1440: боковые отступы 32px */
+@media (max-width: 1440px) {
+  .app[data-page-width="xxl"] { --content-side-pad: 32px; }
+}
+
+/* ---------- Шапка (B2B Header New) ---------- */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px 16px 24px;
+  background: linear-gradient(
+    to bottom,
+    #f5f7fa 28.5%,
+    rgba(245, 247, 250, 0.7) 53.6%,
+    rgba(245, 247, 250, 0) 98.9%
+  );
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header__logo { height: 24px; }
+/* Пропорция логотипа из Figma: 157.846 × 24 (SVG отдаётся как 100%,
+   поэтому ширину фиксируем явно, иначе браузер растягивает до 300px) */
+.header__logo img { height: 24px; width: 157.85px; }
+
+.header__menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Круглая иконка-кнопка (уведомления) */
+.icon-button {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--layerFloor1);
+  border: none;
+  border-radius: 900px;
+  cursor: pointer;
+}
+
+/* Плашка пользователя */
+.user-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  background: var(--layerFloor1);
+  border-radius: 22px;
+  cursor: pointer;
+}
+.user-label__avatar {
+  width: 36px; height: 36px;
+  border-radius: 18px;
+  background: var(--bgSecondary);
+  overflow: hidden;
+}
+.user-label__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.user-label__text { display: flex; flex-direction: column; gap: 2px; }
+.user-label__name {
+  font-size: 14px; line-height: 18px; color: var(--textPrimary);
+  max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.user-label__inn { font-size: 12px; line-height: 14px; color: var(--textSecondary); }
+
+/* ---------- Меню + Wrapper ---------- */
+.body {
+  width: 100%;
+  display: flex;
+  padding-left: 24px;
+  flex: 1;
+}
+
+/* ---------- Левое меню (LeftMenu B2B) ---------- */
+.leftmenu {
+  width: var(--leftmenu-w);
+  flex: 0 0 var(--leftmenu-w);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.leftmenu__group { display: flex; flex-direction: column; gap: 2px; padding-bottom: 8px; }
+
+.menu-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px;
+  border-radius: var(--radius-menu);
+  cursor: pointer;
+  font-size: 16px; line-height: 24px;
+  color: var(--textPrimary);
+}
+.menu-item--l2 { padding: 8px 16px 8px 48px; }
+.menu-item--active {
+  background: var(--bgActionSecondary);
+  color: var(--textAction);
+}
+.menu-item:hover:not(.menu-item--active) { background: var(--bgSecondary); }
+
+.leftmenu__legal {
+  margin-top: auto;
+  padding: 24px 16px;
+  font-size: 10px; line-height: 14px;
+  color: var(--textTertiary);
+  letter-spacing: 0.2px;
+}
+
+/* ---------- Wrapper (контент страницы) ---------- */
+.wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 40px;
+}
+
+/* Заголовок страницы (PageHeaderTitle) */
+.page-header { display: flex; flex-direction: column; padding-top: 8px; }
+
+.back-button {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 0 8px;
+  background: none; border: none; cursor: pointer;
+  color: var(--textSecondary);
+  font-size: 16px; line-height: 24px;
+  font-family: var(--font-brand);
+}
+
+.title-row {
+  display: flex; align-items: center; gap: 16px;
+  min-height: 36px;
+}
+.title-row__title {
+  flex: 1; min-width: 0;
+  display: flex; align-items: baseline; gap: 4px;
+}
+.title-row__title h1 {
+  margin: 0;
+  font-size: 32px; line-height: 36px; font-weight: 700;
+  color: var(--textPrimary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.title-info {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 4px;
+  border: none; background: none; cursor: pointer;
+}
+
+/* Кнопка Action в шапке страницы */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; cursor: pointer;
+  font-family: var(--font-brand); font-weight: 600;
+}
+.btn--action {
+  min-height: 32px; padding: 8px 12px;
+  border-radius: var(--radius-button);
+  background: var(--bgActionPrimary);
+  color: var(--textLightKey);
+  font-size: 14px; line-height: 20px;
+}
+
+/* ---------- Контент-контейнер + Степпер ---------- */
+.content-area {
+  display: flex; gap: 16px; align-items: flex-start;
+  flex: 1;
+}
+
+.content-container {
+  flex: 1; min-width: 0;
+  align-self: stretch;
+  min-height: 0;
+  padding: var(--pad-32);
+  background: var(--layerFloor1);
+  border-radius: var(--radius-600);
+  overflow: clip;
+}
+
+/* Большие кнопки внутри контейнера (56px) */
+.btn--l {
+  min-height: 56px; padding: 16px 24px;
+  border-radius: var(--radius-500);
+  font-size: 16px; line-height: 24px;
+}
+.btn--l.btn--secondary { background: var(--bgActionSecondary); color: var(--textAction); }
+.btn--l.btn--primary { background: var(--bgActionPrimary); color: var(--textLightKey); }
+
+/* ---------- Степпер (Stepper) ---------- */
+.stepper {
+  width: var(--stepper-w);
+  flex: 0 0 var(--stepper-w);
+  padding: 24px;
+  background: var(--layerFloor1);
+  border-radius: var(--radius-600);
+  position: sticky;
+  top: 92px;
+}
+.stepper__list { display: flex; flex-direction: column; }
+.step { display: flex; gap: 8px; align-items: flex-start; min-height: 24px; }
+.step__marker {
+  width: 24px; height: 24px; flex: 0 0 24px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.step__marker img { width: 24px; height: 24px; }
+.step__marker--num {
+  font-size: 14px; line-height: 20px; font-weight: 600;
+}
+.step__marker--num.checked  { color: var(--textTertiary); }
+.step__marker--num.active {
+  color: var(--textPrimaryInverted);
+}
+.step__marker--num .ellipse { position: absolute; width: 20px; height: 20px; inset: 2px; }
+.step__marker--num span { position: relative; z-index: 1; }
+.step__label {
+  flex: 1; min-width: 0;
+  font-size: 16px; line-height: 24px; color: var(--textPrimary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* Соединительная линия между шагами */
+.step__line {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+}
+.step__line::before {
+  content: ""; width: 2px; height: 20px;
+  background: var(--graphicNeutral); border-radius: 16px;
+}
+
+/* =========================================================================
+   БЛОК КОНТЕНТА (переключается дропдауном «Состояние контейнера»)
+   ========================================================================= */
+.state { display: none; flex-direction: column; gap: 24px; }
+.state.is-active { display: flex; }
+
+.state__title { margin: 0; font-size: 27px; line-height: 32px; font-weight: 700; }
+.state__text  { margin: 0; font-size: 16px; line-height: 24px; color: var(--textPrimary); }
+.state__buttons { display: flex; gap: 16px; align-items: center; }
+
+/* Пустое / ошибка — центрируем «серый круг» + текст */
+.state--centered {
+  align-items: center; justify-content: center;
+  text-align: center; min-height: 480px;
+}
+.state--centered .state__title { font-size: 22px; }
+.state--centered .state__text { color: var(--textSecondary); max-width: 360px; }
+
+/* Скелетон-загрузка */
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(90deg, #eef1f6 25%, #e3e8f0 50%, #eef1f6 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s ease infinite;
+}
+@keyframes skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.skeleton--title { height: 32px; width: 60%; }
+.skeleton--line { height: 20px; width: 100%; }
+.skeleton--line.short { width: 40%; }
+.skeleton--btn { height: 56px; width: 160px; border-radius: 16px; }
+
+/* =========================================================================
+   ПАНЕЛЬ УПРАВЛЕНИЯ (не часть макета — инструмент дизайнера)
+   ========================================================================= */
+/* Плавающая кнопка вызова настроек — брендовый стиль (как «Action»/«Продолжить») */
+.settings-fab {
+  position: fixed;
+  right: 24px; bottom: 24px;
+  z-index: 120;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px 12px 16px;
+  background: var(--bgActionPrimary); color: var(--textLightKey);
+  border: none; border-radius: 999px;
+  font-family: var(--font-brand); font-size: 16px; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 91, 255, 0.30);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.settings-fab:hover { transform: translateY(-1px); box-shadow: 0 14px 34px rgba(0, 91, 255, 0.38); }
+.settings-fab__icon { width: 22px; height: 22px; }
+
+/* Затемнение под сайдбаром */
+.drawer-backdrop {
+  position: fixed; inset: 0; z-index: 130;
+  background: rgba(0, 26, 52, 0.28);
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.drawer-backdrop.is-open { opacity: 1; }
+
+/* Сайдбар настроек — карточка на фоне страницы */
+.drawer {
+  position: fixed; top: 0; right: 0; z-index: 140;
+  width: 380px; max-width: 92vw; height: 100vh;
+  background: var(--bgPrimary);
+  box-shadow: -16px 0 48px rgba(0, 26, 52, 0.16);
+  border-radius: 24px 0 0 24px;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column;
+}
+.drawer.is-open { transform: translateX(0); }
+
+.drawer__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 24px 12px;
+  flex: 0 0 auto;
+}
+.drawer__head b {
+  font-family: var(--font-brand);
+  font-size: 20px; font-weight: 700; color: var(--textPrimary);
+}
+/* Крестик — круглый icon-button как в шапке */
+.drawer__close {
+  width: 40px; height: 40px; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: var(--layerFloor1); border-radius: 999px;
+  color: var(--textSecondary); cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.drawer__close svg { width: 20px; height: 20px; }
+.drawer__close:hover { background: var(--bgActionSecondary); color: var(--textAction); }
+
+.drawer__body {
+  padding: 8px 16px 24px;
+  overflow-y: auto; flex: 1;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+/* Секции — белые карточки, как контейнеры в макете */
+.control-group {
+  background: var(--layerFloor1);
+  border-radius: var(--radius-500);
+  padding: 6px 16px 10px;
+}
+.control-group__title {
+  font-size: 13px; text-transform: none; letter-spacing: 0;
+  font-weight: 600; color: var(--textTertiary);
+  padding: 12px 0 4px;
+}
+.control-group__title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px;
+  color: #8a93a3; margin-bottom: 8px;
+}
+.control-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; gap: 12px;
+}
+.control-row + .control-row { border-top: 1px solid var(--bgSecondary); }
+.control-row label { color: var(--textPrimary); font-size: 15px; }
+.control-row select,
+.control-row input[type="text"] {
+  font-family: var(--font-brand); font-size: 15px;
+  padding: 8px 12px; border: 1px solid transparent; border-radius: 10px;
+  background: var(--bgSecondary); color: var(--textPrimary);
+  outline: none; transition: border-color 0.15s ease, background 0.15s ease;
+}
+.control-row select:focus,
+.control-row input[type="text"]:focus {
+  border-color: var(--textAction); background: var(--layerFloor1);
+}
+.control-row select { min-width: 140px; cursor: pointer; }
+.control-row input[type="text"] { width: 150px; }
+
+/* Переключатель */
+.switch { position: relative; display: inline-block; width: 38px; height: 22px; flex: 0 0 auto; }
+.switch input {
+  position: absolute; inset: 0; z-index: 2;
+  width: 100%; height: 100%; margin: 0;
+  opacity: 0; cursor: pointer;
+}
+.switch .track {
+  position: absolute; inset: 0; z-index: 1; border-radius: 999px;
+  background: var(--graphicNeutral); transition: 0.2s; pointer-events: none;
+}
+.switch .track::before {
+  content: ""; position: absolute; width: 18px; height: 18px;
+  left: 2px; top: 2px; border-radius: 999px; background: #fff; transition: 0.2s;
+}
+.switch input:checked + .track { background: var(--bgActionPrimary); }
+.switch input:checked + .track::before { transform: translateX(16px); }
+
+.controls__hint { font-size: 13px; color: var(--textSecondary); line-height: 18px; margin: 4px 0 6px; }
+
+/* Утилита скрытия элементов лейаута через тумблеры */
+[hidden] { display: none !important; }

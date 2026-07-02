@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ozon Банк · B2B Лейаут для дизайнеров</title>
+
+  <!-- Шрифт бренда Onest (из Figma: font/family/brand) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       ЛЕЯУТ СТРАНИЦЫ
+       Структура 1:1 из Figma: Header → LeftMenu → Wrapper (PageHeader +
+       Content Container + Stepper).
+       Тумблеры в панели справа показывают/прячут блоки.
+       ===================================================================== -->
+  <div class="app" id="app" data-page-width="xxl">
+
+    <!-- ШАПКА -->
+    <header class="header" id="header">
+      <div class="header__logo">
+        <img src="assets/icons/ozon_bank_logo.svg" alt="Ozon Банк" />
+      </div>
+      <div class="header__menu">
+        <button class="icon-button" id="notifications" title="Уведомления">
+          <img class="icon" src="assets/icons/ic_m_bell_filled.svg" alt="" />
+        </button>
+        <div class="user-label" id="userLabel">
+          <div class="user-label__avatar">
+            <img src="assets/icons/avatar_triangle.png" alt="" />
+          </div>
+          <div class="user-label__text">
+            <span class="user-label__name">ИП Левитан И.И.</span>
+            <span class="user-label__inn">ИНН 501603001313</span>
+          </div>
+          <img class="icon" src="assets/icons/ic_m_chevron_down_filled.svg" alt="" />
+        </div>
+      </div>
+    </header>
+
+    <!-- ТЕЛО: меню + контент -->
+    <div class="body">
+
+      <!-- ЛЕВОЕ МЕНЮ -->
+      <nav class="leftmenu" id="leftmenu">
+        <div class="leftmenu__group">
+          <div class="menu-item menu-item--active">
+            <img class="icon" src="assets/icons/ic_m_home_filled.svg" alt="" />
+            <span>Главная</span>
+          </div>
+          <div class="menu-item menu-item--l2"><span>[Пункт меню]</span></div>
+          <div class="menu-item menu-item--l2"><span>[Пункт меню]</span></div>
+          <div class="menu-item menu-item--l2"><span>[Пункт меню]</span></div>
+          <div class="menu-item menu-item--l2"><span>[Пункт меню]</span></div>
+        </div>
+        <div class="leftmenu__legal">
+          © 2022–2025 ООО «ОЗОН Банк», лицензия Банка России № 3542
+          от 12 апреля 2023 года
+        </div>
+      </nav>
+
+      <!-- WRAPPER -->
+      <div class="wrapper">
+
+        <!-- Заголовок страницы -->
+        <div class="page-header">
+          <button class="back-button" id="backButton">
+            <img class="icon s16" src="assets/icons/ic_s_chevron_left.svg" alt="" />
+            <span>Назад</span>
+          </button>
+          <div class="title-row">
+            <div class="title-row__title">
+              <h1 id="pageTitle">[Страница]</h1>
+              <button class="title-info" id="titleInfo" title="Подробнее">
+                <img class="icon s16" src="assets/icons/ic_s_info_filled.svg" alt="" />
+              </button>
+            </div>
+            <button class="btn btn--action" id="actionButton">Action</button>
+          </div>
+        </div>
+
+        <!-- Контент-контейнер + степпер -->
+        <div class="content-area">
+
+          <!-- КОНТЕНТ-КОНТЕЙНЕР (содержимое зависит от выбранного состояния) -->
+          <section class="content-container" id="contentContainer">
+
+            <!-- Состояние: Заполнено (по макету) -->
+            <div class="state is-active" data-state="filled">
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <h2 class="state__title">Заявка на открытие счёта принята</h2>
+                <p class="state__text">
+                  Подготовили список документов для вашей организации.<br />
+                  Загрузите документы — рассмотрим их за 1 день
+                </p>
+              </div>
+              <div class="state__buttons">
+                <button class="btn btn--l btn--secondary">Назад</button>
+                <button class="btn btn--l btn--primary">Продолжить</button>
+              </div>
+            </div>
+
+            <!-- Состояние: Пустое -->
+            <div class="state state--centered" data-state="empty">
+              <!-- Иллюстрации нет в Figma → серый круг-плейсхолдер (заменить экспортом) -->
+              <div class="placeholder-circle big"></div>
+              <h2 class="state__title">Здесь пока пусто</h2>
+              <p class="state__text">Когда появятся данные, они отобразятся на этой странице.</p>
+              <div class="state__buttons">
+                <button class="btn btn--l btn--primary">Создать</button>
+              </div>
+            </div>
+
+            <!-- Состояние: Загрузка (скелетон) -->
+            <div class="state" data-state="loading" style="gap:24px;">
+              <div class="skeleton skeleton--title"></div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div class="skeleton skeleton--line"></div>
+                <div class="skeleton skeleton--line short"></div>
+              </div>
+              <div style="display:flex; gap:16px;">
+                <div class="skeleton skeleton--btn"></div>
+                <div class="skeleton skeleton--btn"></div>
+              </div>
+            </div>
+
+            <!-- Состояние: Ошибка -->
+            <div class="state state--centered" data-state="error">
+              <!-- Иллюстрации ошибки нет в Figma → серый круг-плейсхолдер -->
+              <div class="placeholder-circle big"></div>
+              <h2 class="state__title">Что-то пошло не так</h2>
+              <p class="state__text">Не удалось загрузить данные. Попробуйте обновить страницу.</p>
+              <div class="state__buttons">
+                <button class="btn btn--l btn--primary">Обновить</button>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- СТЕППЕР -->
+          <aside class="stepper" id="stepper">
+            <div class="stepper__list">
+              <div class="step">
+                <span class="step__marker">
+                  <img src="assets/icons/ic_m_multicolor_check_green.svg" alt="" />
+                </span>
+                <span class="step__label">[Название шага]</span>
+              </div>
+              <div class="step__line"></div>
+              <div class="step">
+                <span class="step__marker">
+                  <img src="assets/icons/ic_m_multicolor_check_green.svg" alt="" />
+                </span>
+                <span class="step__label">[Название шага]</span>
+              </div>
+              <div class="step__line"></div>
+              <div class="step">
+                <span class="step__marker">
+                  <img src="assets/icons/ic_m_multicolor_check_green.svg" alt="" />
+                </span>
+                <span class="step__label">[Название шага]</span>
+              </div>
+              <div class="step__line"></div>
+              <div class="step">
+                <span class="step__marker step__marker--num active">
+                  <img class="ellipse" src="assets/icons/step_ellipse_active.svg" alt="" />
+                  <span>4</span>
+                </span>
+                <span class="step__label">[Название шага]</span>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       ПАНЕЛЬ УПРАВЛЕНИЯ (инструмент дизайнера, поверх страницы — не в потоке)
+       Плавающая кнопка → выезжающий сайдбар справа.
+       ===================================================================== -->
+
+  <!-- Плавающая кнопка -->
+  <button class="settings-fab" id="settingsFab" aria-label="Настройки лейаута">
+    <svg class="settings-fab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M3 8h11M3 16h6" />
+      <circle cx="17" cy="8" r="2.6" fill="var(--bgActionPrimary)" />
+      <circle cx="12" cy="16" r="2.6" fill="var(--bgActionPrimary)" />
+    </svg>
+    <span class="settings-fab__text">Настройки</span>
+  </button>
+
+  <!-- Затемнение фона -->
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+  <!-- Сайдбар настроек -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__head">
+      <b>Настройки лейаута</b>
+      <button class="drawer__close" id="drawerClose" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+    <div class="drawer__body">
+
+      <div class="control-group">
+        <div class="control-group__title">Состояние контейнера</div>
+        <div class="control-row">
+          <label for="stateSelect">Контент</label>
+          <select id="stateSelect">
+            <option value="filled">Заполнено</option>
+            <option value="empty">Пустое</option>
+            <option value="loading">Загрузка</option>
+            <option value="error">Ошибка</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group control-group--blocks">
+        <div class="control-group__title">Блоки страницы</div>
+        <div class="control-row">
+          <label>Левая навигация</label>
+          <label class="switch"><input type="checkbox" data-toggle="leftmenu" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label>Степпер справа</label>
+          <label class="switch"><input type="checkbox" data-toggle="stepper" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label>Кнопка Action в шапке</label>
+          <label class="switch"><input type="checkbox" data-toggle="actionButton" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label>Кнопка «Назад»</label>
+          <label class="switch"><input type="checkbox" data-toggle="backButton" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label>Иконка-инфо у заголовка</label>
+          <label class="switch"><input type="checkbox" data-toggle="titleInfo" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label>Уведомления в шапке</label>
+          <label class="switch"><input type="checkbox" data-toggle="notifications" checked /><span class="track"></span></label>
+        </div>
+        <div class="control-row">
+          <label>Плашка пользователя</label>
+          <label class="switch"><input type="checkbox" data-toggle="userLabel" checked /><span class="track"></span></label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__title">Настройки страницы</div>
+        <div class="control-row">
+          <label for="titleInput">Заголовок</label>
+          <input type="text" id="titleInput" value="[Страница]" />
+        </div>
+        <div class="control-row">
+          <label for="widthSelect">Ширина</label>
+          <select id="widthSelect">
+            <option value="xxl">Desktop XXL</option>
+            <option value="fluid">Резиновая</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-group__title">Библиотеки</div>
+        <p class="controls__hint">
+          Слоты для анимаций и JS подключаются внизу <b>index.html</b>.
+          Раскомментируй нужную (GSAP / anime.js / AOS) и пиши код в
+          <b>layout.js</b> внутри <b>Layout.onReady()</b>.
+        </p>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       БИБЛИОТЕКИ АНИМАЦИЙ / JS
+       Раскомментируй нужную строку — библиотека подключится с CDN.
+       Дальше используй её в layout.js внутри Layout.onReady(...).
+       ===================================================================== -->
+  <!-- GSAP (анимации):     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script> -->
+  <!-- anime.js:            <script src="https://cdn.jsdelivr.net/npm/animejs@3/lib/anime.min.js"></script> -->
+  <!-- AOS (скролл-аним.):  <link href="https://cdn.jsdelivr.net/npm/aos@2/dist/aos.css" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/aos@2/dist/aos.js"></script> -->
+
+  <script src="layout.js"></script>
+</body>
+</html>
