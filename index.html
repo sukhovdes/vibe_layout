@@ -115,14 +115,15 @@
               </div>
             </div>
 
-            <!-- Состояние: Пустое -->
-            <div class="state state--card state--centered" data-state="empty">
-              <!-- Иллюстрации нет в Figma → серый круг-плейсхолдер (заменить экспортом) -->
-              <div class="placeholder-circle big"></div>
-              <h2 class="state__title">Здесь пока пусто</h2>
-              <p class="state__text">Когда появятся данные, они отобразятся на этой странице.</p>
-              <div class="state__buttons">
-                <button class="btn btn--l btn--primary">Создать</button>
+            <!-- Состояние: Системное сообщение (SystemMessage) -->
+            <div class="state state--card state--centered" data-state="message">
+              <div class="system-message">
+                <img class="system-message__icon" src="assets/illustrations/system_message.png" alt="" />
+                <div class="system-message__text">
+                  <h2 class="system-message__title">Данные в порядке</h2>
+                  <p class="system-message__subtitle">Вы можете продолжить оформление заявки</p>
+                </div>
+                <button class="btn btn--m btn--primary">Продолжить</button>
               </div>
             </div>
 
@@ -139,14 +140,33 @@
               </div>
             </div>
 
-            <!-- Состояние: Ошибка -->
-            <div class="state state--card state--centered" data-state="error">
-              <!-- Иллюстрации ошибки нет в Figma → серый круг-плейсхолдер -->
-              <div class="placeholder-circle big"></div>
-              <h2 class="state__title">Что-то пошло не так</h2>
-              <p class="state__text">Не удалось загрузить данные. Попробуйте обновить страницу.</p>
-              <div class="state__buttons">
-                <button class="btn btn--l btn--primary">Обновить</button>
+            <!-- Состояние: Выбор способа подтверждения -->
+            <div class="state state--card" data-state="verify">
+              <div class="verify">
+                <div class="verify__head">
+                  <h2 class="verify__title">Выберите способ подтверждения личности</h2>
+                </div>
+                <div class="verify__options">
+                  <button type="button" class="option option--selected" data-option>
+                    <span class="option__icon"><img class="icon" src="assets/icons/ic_m_key_filled.svg" alt="" /></span>
+                    <span class="option__text">
+                      <span class="option__title">Электронная подпись (УКЭП)</span>
+                      <span class="option__sub">Нужна флешка с подписью, Яндекс Браузер и плагин</span>
+                    </span>
+                    <span class="radio"></span>
+                  </button>
+                  <button type="button" class="option" data-option>
+                    <span class="option__icon"><img class="icon" src="assets/icons/ic_m_gosuslugi_filled.svg" alt="" /></span>
+                    <span class="option__text">
+                      <span class="option__title">Госуслуги</span>
+                      <span class="option__sub">Руководитель должен авторизоваться на портале</span>
+                    </span>
+                    <span class="radio"></span>
+                  </button>
+                </div>
+                <div class="verify__buttons">
+                  <button class="btn btn--l btn--primary" id="verifyContinue">Продолжить</button>
+                </div>
               </div>
             </div>
 
@@ -200,8 +220,8 @@
   <button class="settings-fab" id="settingsFab" aria-label="Настройки лейаута">
     <svg class="settings-fab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
       <path d="M3 8h11M3 16h6" />
-      <circle cx="17" cy="8" r="2.6" fill="var(--bgActionPrimary)" />
-      <circle cx="12" cy="16" r="2.6" fill="var(--bgActionPrimary)" />
+      <circle cx="17" cy="8" r="2.6" fill="currentColor" />
+      <circle cx="12" cy="16" r="2.6" fill="currentColor" />
     </svg>
     <span class="settings-fab__text">Настройки</span>
   </button>
@@ -227,9 +247,9 @@
           <label for="stateSelect">Контент</label>
           <select id="stateSelect">
             <option value="filled">Заполнено</option>
-            <option value="empty">Пустое</option>
+            <option value="verify">Выбор подтверждения</option>
+            <option value="message">Системное сообщение</option>
             <option value="loading">Загрузка</option>
-            <option value="error">Ошибка</option>
           </select>
         </div>
       </div>

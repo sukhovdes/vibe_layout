@@ -21,12 +21,34 @@
 
   document.addEventListener('DOMContentLoaded', function () {
 
-    /* ---- 1. Состояние контейнера (дропдаун) ---- */
+    /* ---- 1. Состояние контейнера (дропдаун + переходы по кнопкам) ---- */
     var stateSelect = document.getElementById('stateSelect');
     var states = document.querySelectorAll('#contentContainer .state');
-    stateSelect.addEventListener('change', function () {
+
+    function activateState(name) {
       states.forEach(function (el) {
-        el.classList.toggle('is-active', el.dataset.state === stateSelect.value);
+        el.classList.toggle('is-active', el.dataset.state === name);
+      });
+      // синхронизируем дропдаун, если такое состояние в нём есть
+      var hasOption = Array.prototype.some.call(stateSelect.options, function (o) { return o.value === name; });
+      if (hasOption) stateSelect.value = name;
+    }
+
+    stateSelect.addEventListener('change', function () { activateState(stateSelect.value); });
+
+    /* Поток-цикл: «Продолжить» в заполненном → экран выбора → «Продолжить» → назад */
+    var flowContinue = document.getElementById('btnPrimary');
+    var verifyContinue = document.getElementById('verifyContinue');
+    if (flowContinue) flowContinue.addEventListener('click', function () { activateState('verify'); });
+    if (verifyContinue) verifyContinue.addEventListener('click', function () { activateState('filled'); });
+
+    /* Выбор radio-опции на экране подтверждения */
+    document.querySelectorAll('#contentContainer .verify__options').forEach(function (group) {
+      group.querySelectorAll('[data-option]').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          group.querySelectorAll('[data-option]').forEach(function (o) { o.classList.remove('option--selected'); });
+          opt.classList.add('option--selected');
+        });
       });
     });
 
