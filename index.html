@@ -217,13 +217,13 @@
        ===================================================================== -->
 
   <!-- Плавающая кнопка -->
-  <button class="settings-fab" id="settingsFab" aria-label="Настройки лейаута">
+  <button class="settings-fab" id="settingsFab" aria-label="Layout settings">
     <svg class="settings-fab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
       <path d="M3 8h11M3 16h6" />
       <circle cx="17" cy="8" r="2.6" fill="currentColor" />
       <circle cx="12" cy="16" r="2.6" fill="currentColor" />
     </svg>
-    <span class="settings-fab__text">Настройки</span>
+    <span class="settings-fab__text">Settings</span>
   </button>
 
   <!-- Затемнение фона -->
@@ -232,8 +232,8 @@
   <!-- Сайдбар настроек -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer__head">
-      <b>Настройки лейаута</b>
-      <button class="drawer__close" id="drawerClose" aria-label="Закрыть">
+      <b>Layout Settings</b>
+      <button class="drawer__close" id="drawerClose" aria-label="Close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M6 6l12 12M18 6L6 18" />
         </svg>
@@ -242,98 +242,86 @@
     <div class="drawer__body">
 
       <div class="control-group">
-        <div class="control-group__title">Состояние контейнера</div>
+        <div class="control-group__title">Container State</div>
         <div class="control-row">
-          <label for="stateSelect">Контент</label>
+          <label for="stateSelect">Content</label>
           <select id="stateSelect">
-            <option value="filled">Заполнено</option>
-            <option value="verify">Выбор подтверждения</option>
-            <option value="message">Системное сообщение</option>
-            <option value="loading">Загрузка</option>
+            <option value="filled">Filled</option>
+            <option value="verify">Verification</option>
+            <option value="message">System Message</option>
+            <option value="loading">Loading</option>
           </select>
         </div>
       </div>
 
       <div class="control-group">
-        <div class="control-group__title">Остров (контент)</div>
+        <div class="control-group__title">Island (Content)</div>
         <div class="control-row">
-          <label>Картинка</label>
+          <label>Image</label>
           <label class="switch"><input type="checkbox" data-toggle="islandImage" /><span class="track"></span></label>
         </div>
         <div class="control-row">
-          <label for="btnPrimaryInput">Текст основной кнопки</label>
+          <label for="btnPrimaryInput">Button Primary Text</label>
           <input type="text" id="btnPrimaryInput" value="Продолжить" />
         </div>
         <div class="control-row">
-          <label>Вторичная кнопка</label>
+          <label>Button Secondary</label>
           <label class="switch"><input type="checkbox" data-toggle="btnSecondary" checked /><span class="track"></span></label>
         </div>
         <div class="control-row">
-          <label for="btnSecondaryInput">Текст вторичной</label>
+          <label for="btnSecondaryInput">Button Secondary Text</label>
           <input type="text" id="btnSecondaryInput" value="Назад" />
         </div>
         <div class="control-row">
-          <label for="secondarySideSelect">Вторичная кнопка</label>
+          <label for="secondarySideSelect">Button Secondary Side</label>
           <select id="secondarySideSelect">
-            <option value="left">Слева</option>
-            <option value="right">Справа</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
           </select>
         </div>
       </div>
 
       <div class="control-group control-group--blocks">
-        <div class="control-group__title">Блоки страницы</div>
+        <div class="control-group__title">Page Blocks</div>
         <div class="control-row">
-          <label>Левая навигация</label>
-          <label class="switch"><input type="checkbox" data-toggle="leftmenu" checked /><span class="track"></span></label>
-        </div>
-        <div class="control-row">
-          <label>Степпер справа</label>
+          <label>Stepper</label>
           <label class="switch"><input type="checkbox" data-toggle="stepper" checked /><span class="track"></span></label>
         </div>
         <div class="control-row">
-          <label>Кнопка Action в шапке</label>
+          <label>Action Button</label>
           <label class="switch"><input type="checkbox" data-toggle="actionButton" checked /><span class="track"></span></label>
         </div>
         <div class="control-row">
-          <label>Кнопка «Назад»</label>
+          <label>Back Button</label>
           <label class="switch"><input type="checkbox" data-toggle="backButton" checked /><span class="track"></span></label>
         </div>
         <div class="control-row">
-          <label>Иконка-инфо у заголовка</label>
+          <label>Title Info Icon</label>
           <label class="switch"><input type="checkbox" data-toggle="titleInfo" checked /><span class="track"></span></label>
-        </div>
-        <div class="control-row">
-          <label>Уведомления в шапке</label>
-          <label class="switch"><input type="checkbox" data-toggle="notifications" checked /><span class="track"></span></label>
-        </div>
-        <div class="control-row">
-          <label>Плашка пользователя</label>
-          <label class="switch"><input type="checkbox" data-toggle="userLabel" checked /><span class="track"></span></label>
         </div>
       </div>
 
       <div class="control-group">
-        <div class="control-group__title">Настройки страницы</div>
+        <div class="control-group__title">Page Settings</div>
         <div class="control-row">
-          <label for="titleInput">Заголовок</label>
+          <label for="titleInput">Title</label>
           <input type="text" id="titleInput" value="[Страница]" />
         </div>
         <div class="control-row">
-          <label for="widthSelect">Ширина</label>
+          <label for="widthSelect">Width</label>
           <select id="widthSelect">
             <option value="xxl">Desktop XXL</option>
-            <option value="fluid">Резиновая</option>
+            <option value="fluid">Fluid</option>
           </select>
         </div>
       </div>
 
       <div class="control-group">
-        <div class="control-group__title">Библиотеки</div>
+        <div class="control-group__title">Libraries</div>
         <p class="controls__hint">
-          Слоты для анимаций и JS подключаются внизу <b>index.html</b>.
-          Раскомментируй нужную (GSAP / anime.js / AOS) и пиши код в
-          <b>layout.js</b> внутри <b>Layout.onReady()</b>.
+          Animation / JS slots are wired at the bottom of <b>index.html</b>.
+          Uncomment the one you need (GSAP / anime.js / AOS) and write code in
+          <b>layout.js</b> inside <b>Layout.onReady()</b>.
         </p>
       </div>
 
